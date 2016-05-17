@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hello, world!</title>
+
+	<script type="text/javascript">
+		function start() {
+			var serversocket = new WebSocket("ws://localhost:8080/ws");
+
+			serversocket.onopen = function() {
+				serversocket.send("Connection init");
+			}
+
+			serversocket.onmessage = function(e) {
+				console.log("Received: " + e.data);
+			};
+		}
+
+</script>
+</head>
+<body onload="start()">
+
+	<h1>Yay!</h1>
+
+</body>
+</html>
