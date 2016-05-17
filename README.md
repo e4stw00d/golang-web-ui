@@ -1,1 +1,1 @@
-Web based gui for golang lang!
+Hello, world!
