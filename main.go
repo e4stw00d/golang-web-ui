@@ -37,7 +37,6 @@ func response(ws *websocket.Conn) {
 
 		str := "Hello!"
 		ws.Write([]byte(str))
-		//io.Copy(ws, ws)
 		fmt.Printf("Sent: %s\n", str)
 	}
 }
