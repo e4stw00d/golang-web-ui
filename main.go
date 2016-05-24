@@ -6,6 +6,8 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+	"os/exec"
+	"time"
 )
 
 var opened bool = false
@@ -41,6 +43,11 @@ func response(ws *websocket.Conn) {
 	}
 }
 
+func delaySecond(n time.Duration, fn func()) {
+	time.Sleep(n * time.Second)
+	fn()
+}
+
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		t, err := template.ParseFiles("main.html")
@@ -50,5 +57,11 @@ func main() {
 		t.Execute(w, nil)
 	})
 	http.Handle("/ws", websocket.Handler(response))
+
+	go delaySecond(1, func() {
+		exec.Command("open", "http://localhost:8080/").Start()
+		fmt.Println("Served on 8080")
+	})
+
 	http.ListenAndServe(":8080", nil)
 }
